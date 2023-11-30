@@ -14,11 +14,11 @@ function loadBillPersons() {
 // we found persons arraay now we are showing single persons 
 
 function showBillPerson (persons){
-    console.log(persons);
+    // console.log(persons);
     const personContainer = document.getElementById('personContainer')
     personContainer.innerText =''
    for (const person of persons) {
-    console.log(person);
+    // console.log(person);
     const creatDiv = document.createElement('div')
     creatDiv.classList.add('col')
     creatDiv.innerHTML = `
@@ -30,6 +30,9 @@ function showBillPerson (persons){
         <p class="card-text"> State : ${person.state}</p>
         <p class="card-text"> Rank: ${person.rank}</p>
         </div>
+        <button type="button" onclick="loadModalDetails(${person})"  class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#showLoadModal">
+    Details
+  </button>
         </div>
        
     
@@ -40,11 +43,23 @@ function showBillPerson (persons){
 
 
 const loadModalDetails =() =>{
-    fetch(`https://forbes400.onrender.com/api/forbes400/industries/technology`)
+  const url =(`https://forbes400.onrender.com/api/forbes400/industries/technology`)
+    fetch(url)
     .then(res => res.json())
-    .then(data => console.log('modal', data))
+    .then(data => showLoadModal( data))
 }
-const showLoadModal =
+const showLoadModal = (techs)=>{
+
+  console.log(techs,'lkjd');
+ for (const tech of techs) {
+  console.log(tech,'ttttt');
+   const showLoadModal = document.getElementById('showLoadModal')
+   showLoadModal.innerHTML =
+   `
+   <p>City${tech.city}</p>
+   `
+ }
+}
 // we add more person list here 
 function handelLoadMore(){
     more += 10
